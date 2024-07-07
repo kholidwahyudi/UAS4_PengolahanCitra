@@ -12,64 +12,65 @@ Ensure you have the following libraries installed:
 - `matplotlib`
 - `opencv-python`
 
-You can install these dependencies using pip:
+berikut Source code nya
 
-```bash
-pip install numpy matplotlib opencv-python
-<div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
-<span class="hljs-keyword">import</span> cv2
+```
+import numpy as np
+import matplotlib.pyplot as plt
+import cv2
 
-<span class="hljs-comment"># Memuat gambar sesuai dengan yang dimiliki</span>
-image = cv2.imread(<span class="hljs-string">'Downloads/daun.jpg'</span>)
-<span class="hljs-keyword">if</span> image <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
-    <span class="hljs-keyword">raise</span> FileNotFoundError(<span class="hljs-string">"File gambar tidak ditemukan. Periksa kembali jalur file."</span>)
+# Memuat gambar sesuai dengan yang dimiliki
+image = cv2.imread('Downloads/daun.jpg')
+if image is None:
+    raise FileNotFoundError("File gambar tidak ditemukan. Periksa kembali jalur file.")
 
-<span class="hljs-comment"># Mengubah warna gambar menjadi RGB (dari BGR)</span>
+# Mengubah warna gambar menjadi RGB (dari BGR)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-<span class="hljs-comment"># Membentuk ulang gambar menjadi susunan piksel 2D dengan 3 nilai warna (RGB)</span>
-pixel_vals = image.reshape((-<span class="hljs-number">1</span>, <span class="hljs-number">3</span>))
+# Membentuk ulang gambar menjadi susunan piksel 2D dengan 3 nilai warna (RGB)
+pixel_vals = image.reshape((-1, 3))
 
-<span class="hljs-comment"># Mengkonversikan tipe data ke float</span>
+# Mengkonversikan tipe data ke float
 pixel_vals = np.float32(pixel_vals)
 
-<span class="hljs-comment"># Menentukan kriteria agar algoritme berhenti berjalan: 100 iterasi atau epsilon 0.85</span>
-criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, <span class="hljs-number">100</span>, <span class="hljs-number">0.85</span>)
+# Menentukan kriteria agar algoritme berhenti berjalan: 100 iterasi atau epsilon 0.85
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.85)
 
-<span class="hljs-comment"># Menentukan jumlah cluster (K)</span>
-k = <span class="hljs-number">3</span>
+# Menentukan jumlah cluster (K)
+k = 3
 
-<span class="hljs-comment"># Melakukan k-means clustering</span>
-retval, labels, centers = cv2.kmeans(pixel_vals, k, <span class="hljs-literal">None</span>, criteria, <span class="hljs-number">10</span>, cv2.KMEANS_RANDOM_CENTERS)
+# Melakukan k-means clustering
+retval, labels, centers = cv2.kmeans(pixel_vals, k, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
 
-<span class="hljs-comment"># Mengkonversi data pusat cluster menjadi nilai 8-bit</span>
+# Mengkonversi data pusat cluster menjadi nilai 8-bit
 centers = np.uint8(centers)
 
-<span class="hljs-comment"># Memetakan label ke warna pusat cluster</span>
+# Memetakan label ke warna pusat cluster
 segmented_data = centers[labels.flatten()]
 
-<span class="hljs-comment"># Membentuk ulang data menjadi dimensi gambar asli</span>
+# Membentuk ulang data menjadi dimensi gambar asli
 segmented_image = segmented_data.reshape((image.shape))
 
-<span class="hljs-comment"># Menampilkan gambar asli dan gambar tersegmentasi dalam satu plot</span>
-plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">6</span>))
+# Menampilkan gambar asli dan gambar tersegmentasi dalam satu plot
+plt.figure(figsize=(12, 6))
 
-plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+plt.subplot(1, 2, 1)
 plt.imshow(image)
-plt.title(<span class="hljs-string">'Gambar Asli'</span>)
+plt.title('Gambar Asli')
 
-plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+plt.subplot(1, 2, 2)
 plt.imshow(segmented_image)
-plt.title(<span class="hljs-string">'Gambar Tersegmentasi'</span>)
+plt.title('Gambar Tersegmentasi')
 
 plt.show()
 
-<span class="hljs-comment"># Menampilkan pusat cluster</span>
-<span class="hljs-built_in">print</span>(<span class="hljs-string">"Pusat cluster:\n"</span>, centers)
+# Menampilkan pusat cluster
+print("Pusat cluster:\n", centers)
 
-<span class="hljs-comment"># Menampilkan distribusi label</span>
-unique_labels, counts = np.unique(labels, return_counts=<span class="hljs-literal">True</span>)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">"Distribusi label:\n"</span>, <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(unique_labels, counts)))
-</code></div>
+# Menampilkan distribusi label
+unique_labels, counts = np.unique(labels, return_counts=True)
+print("Distribusi label:\n", dict(zip(unique_labels, counts)))
 ```
+
+## output
+![Gambar](img/daun.jpeg)

@@ -73,4 +73,5 @@ print("Distribusi label:\n", dict(zip(unique_labels, counts)))
 ```
 
 ## output
-![Gambar](img/daun.jpeg)
+![Uploading image.png…]()
+

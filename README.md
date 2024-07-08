@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # UAS4_PengolahanCitra
 
 # Image Segmentation with K-means Clustering
@@ -75,6 +73,5 @@ print("Distribusi label:\n", dict(zip(unique_labels, counts)))
 ```
 
 ## output
-![Uploading image.png…]()
 
->>>>>>> 7e82bd455a41563721177406eed2f8047b70202b
+![img](img/daun.JPG)
